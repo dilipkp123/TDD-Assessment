@@ -22,4 +22,22 @@ describe("String calculator", () => {
   test("should handle delimiter string with sum of number;", () => {
     expect(StringCalculator("//;\n1;2,3\n4")).toBe(10);
   });
+  test("should throw an error for negative number", () => {
+    expect(() => StringCalculator("1,-2,3")).toThrow(
+      "Negatives not allowed: -2"
+    );
+  });
+  test("should throw an error for multiple negative numbers", () => {
+    expect(() => StringCalculator("1,-2,-3")).toThrow(
+      "Negatives not allowed: -2, -3"
+    );
+  });
+  test("should throw an error for multiple negative numbers in delimiter format", () => {
+    expect(() => StringCalculator("//;\n1;-2;-3")).toThrow(
+      "Negatives not allowed: -2, -3"
+    );
+  });
+  test("should return sum if number greater than 1000 is included", () => {
+    expect(StringCalculator("//;\n1;500;1001")).toBe(1502);
+  });
 });
